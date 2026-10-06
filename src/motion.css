@@ -35,9 +35,13 @@
   transition: opacity 320ms ease,
               transform 320ms ease;
 }
-.panel-enter-active, .panel-leave-active {
-  transition: opacity 320ms ease,
-              transform 320ms ease;
+.panel-enter-from {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.panel-leave-to {
+  opacity: 0;
+  transform: translateY(-12px);
 }
 /* 06 TODO: prefers-reduced-motion overrides. */
 @media (prefers-reduced-motion: reduce) {
