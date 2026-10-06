@@ -1,5 +1,6 @@
 /* Edit this file. The base layout and Vue behavior are already provided. */
-/* 01 TODO: input transition and focus ring. */
+
+/* 01: input transition and focus ring. */
 .field input {
   transition: border-color 180ms ease,
               box-shadow 180ms ease;
@@ -9,7 +10,8 @@
   border-color: var(--accent);
   box-shadow: 0 0 0 4px #246b5220;
 }
-/* 02 TODO: button transition, hover lift, and active press. */
+
+/* 02: button transition, hover lift, and active press. */
 .primary { transition: transform 180ms ease; }
 .primary:hover:not(:disabled) {
   transform: translateY(-2px);
@@ -17,20 +19,22 @@
 .primary:active:not(:disabled) {
   transform: translateY(0) scale(.98);
 }
-/* 03 TODO: @keyframes shake and .is-error. */
+
+/* 03: @keyframes shake and .is-error. */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25%, 75% { transform: translateX(-6px); }
   50% { transform: translateX(6px); }
 }
 .is-error { animation: shake 380ms ease; }
-/* 04 TODO: @keyframes spin and .spinner. */
+
+/* 04: @keyframes spin and .spinner. */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 .spinner { animation: spin 800ms linear infinite; }
-/* 05 TODO: .panel-enter-active, .panel-leave-active,
-   .panel-enter-from, and .panel-leave-to. */
+
+/* 05: panel transition duration, enter/leave positions. */
 .panel-enter-active, .panel-leave-active {
   transition: opacity 320ms ease,
               transform 320ms ease;
@@ -43,16 +47,18 @@
   opacity: 0;
   transform: translateY(-12px);
 }
-/* 06 TODO: prefers-reduced-motion overrides. */
+
+/* 06: prefers-reduced-motion overrides. */
 @media (prefers-reduced-motion: reduce) {
   .field input, .primary,
   .panel-enter-active, .panel-leave-active {
     transition: none;
   }
   .is-error, .spinner { animation: none; }
-}
-.primary:hover:not(:disabled),
-.primary:active:not(:disabled),
-.panel-enter-from, .panel-leave-to {
-  transform: none;
+
+  .primary:hover:not(:disabled),
+  .primary:active:not(:disabled),
+  .panel-enter-from, .panel-leave-to {
+    transform: none;
+  }
 }
