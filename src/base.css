@@ -94,7 +94,7 @@ input:focus-visible {
   background:
     radial-gradient(
       ellipse at 12% 88%,
-      #c2d8c8 0%,
+      #a4c2ac 0%,
       transparent 42%
     ),
     linear-gradient(
@@ -105,7 +105,7 @@ input:focus-visible {
     );
 }
 
-/* Decorative background shapes */
+/* Decorative bubbles: appearance and position */
 .intro::before,
 .intro::after {
   content: "";
@@ -113,6 +113,7 @@ input:focus-visible {
   z-index: -1;
   pointer-events: none;
   border-radius: 50%;
+  will-change: transform;
 }
 
 .intro::before {
@@ -120,6 +121,7 @@ input:focus-visible {
   height: 340px;
   right: -155px;
   top: 15%;
+
   border: 1px solid #ffffff80;
   box-shadow:
     0 0 0 35px #ffffff20,
