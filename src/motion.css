@@ -1,64 +1,185 @@
-/* Edit this file. The base layout and Vue behavior are already provided. */
 
-/* 01: input transition and focus ring. */
+/* ========================================
+   01. INPUT: Smooth focus and hover
+======================================== */
+
 .field input {
-  transition: border-color 180ms ease,
-              box-shadow 180ms ease;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease,
+    transform 220ms ease;
 }
+
+.field input:hover:not(:focus) {
+  border-color: #9bbcaf;
+}
+
 .field input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px #246b5220;
+  background-color: #ffffff;
+  box-shadow:
+    0 0 0 4px #246b5218,
+    0 4px 12px #246b520a;
+  transform: translateY(-1px);
 }
 
-/* 02: button transition, hover lift, and active press. */
-.primary { transition: transform 180ms ease; }
+/* ========================================
+   02. BUTTON: Lift, glow and press
+======================================== */
+
+.primary {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
 .primary:hover:not(:disabled) {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 18px #246b5225,
+    0 2px 5px #182f2910;
+  background-color: #1e5c46;
 }
+
 .primary:active:not(:disabled) {
-  transform: translateY(0) scale(.98);
+  transform: translateY(0) scale(0.975);
+  box-shadow: 0 2px 5px #246b5218;
 }
 
-/* 03: @keyframes shake and .is-error. */
+/* Arrow moves slightly on hover */
+.primary > span:last-child:not(:first-child) {
+  transition: transform 220ms ease;
+}
+
+.primary:hover:not(:disabled) > span:last-child:not(:first-child) {
+  transform: translateX(4px);
+}
+
+/* Disabled state */
+.primary:disabled {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ========================================
+   03. ERROR: Soft shake animation
+======================================== */
+
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25%, 75% { transform: translateX(-6px); }
-  50% { transform: translateX(6px); }
-}
-.is-error { animation: shake 380ms ease; }
+  0%, 100% {
+    transform: translateX(0);
+  }
 
-/* 04: @keyframes spin and .spinner. */
+  20%, 60% {
+    transform: translateX(-5px);
+  }
+
+  40%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.is-error {
+  animation: shake 380ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.is-error input[aria-invalid="true"] {
+  border-color: #c65b60;
+  box-shadow: 0 0 0 3px #c65b6015;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* ========================================
+   04. LOADING: Smooth rotating spinner
+======================================== */
+
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.spinner { animation: spin 800ms linear infinite; }
 
-/* 05: panel transition duration, enter/leave positions. */
-.panel-enter-active, .panel-leave-active {
-  transition: opacity 320ms ease,
-              transform 320ms ease;
+.spinner {
+  animation: spin 700ms linear infinite;
+  transform-origin: center;
 }
+
+/* ========================================
+   05. PANEL: Elegant entrance and exit
+======================================== */
+
+.panel-enter-active,
+.panel-leave-active {
+  transition:
+    opacity 300ms ease,
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 300ms ease;
+}
+
 .panel-enter-from {
   opacity: 0;
-  transform: translateY(18px);
-}
-.panel-leave-to {
-  opacity: 0;
-  transform: translateY(-12px);
+  transform: translateY(20px) scale(0.985);
+  filter: blur(4px);
 }
 
-/* 06: prefers-reduced-motion overrides. */
+.panel-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.99);
+  filter: blur(2px);
+}
+
+.panel-leave-active {
+  pointer-events: none;
+}
+
+/* ========================================
+   06. TEXT BUTTON: Subtle hover feedback
+======================================== */
+
+.text-button {
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.text-button:hover:not(:disabled) {
+  color: #174b39;
+}
+
+.text-button:active:not(:disabled) {
+  opacity: 0.7;
+}
+
+/* ========================================
+   07. ACCESSIBILITY: Reduced motion
+======================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  .field input, .primary,
-  .panel-enter-active, .panel-leave-active {
-    transition: none;
+  .field input,
+  .primary,
+  .primary > span:last-child:not(:first-child),
+  .text-button,
+  .panel-enter-active,
+  .panel-leave-active,
+  .is-error,
+  .spinner {
+    transition: none !important;
+    animation: none !important;
   }
-  .is-error, .spinner { animation: none; }
 
   .primary:hover:not(:disabled),
   .primary:active:not(:disabled),
-  .panel-enter-from, .panel-leave-to {
+  .field input:focus,
+  .panel-enter-from,
+  .panel-leave-to {
     transform: none;
+    filter: none;
   }
 }
